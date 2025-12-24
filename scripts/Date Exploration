@@ -1,0 +1,20 @@
+--Purpose: Understand the time span of available data
+--Business Relevance:-Helps identify reporting coverage, seasonality potential, and whether trends can be analyzed reliably over time.
+
+SELECT 
+    MIN(order_date) AS first_order,
+    MAX(order_date) AS last_order,
+    DATEDIFF(month, MIN(order_date), MAX(order_date)) AS order_range
+FROM gold.fact_sales;
+
+
+
+--Purpose: Identify age distribution of customers
+--Business Relevance:Supports demographic analysis and helps businesses tailor products, pricing, and marketing strategies to different age groups.
+
+SELECT 
+    MIN(birthdate) AS oldest_birthdate,
+    DATEDIFF(year, MIN(birthdate), GETDATE()) AS oldest_age,
+    MAX(birthdate) AS youngest_birthdate,
+    DATEDIFF(year, MAX(birthdate), GETDATE()) AS youngest_age
+FROM gold.dim_customers;
