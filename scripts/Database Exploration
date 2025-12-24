@@ -1,0 +1,10 @@
+
+--Purpose: Understand schema structure and available attributes
+--Business Relevance:
+--Helps analysts quickly understand what data exists, avoid incorrect joins, and reduce downstream reporting errors. This step prevents costly assumptions before analysis begins.
+
+USE DataWarehouseAnalytics;
+
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'dim_customers';
