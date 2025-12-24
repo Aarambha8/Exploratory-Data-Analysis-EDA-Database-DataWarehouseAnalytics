@@ -1,0 +1,82 @@
+--Purpose: Calculate key performance indicators
+--Business Relevance:These metrics provide a high-level snapshot of business health and are typically the first numbers reviewed by management and stakeholders.
+
+-- Total sales
+SELECT 
+    SUM(sales_amount) AS total_sales
+FROM gold.fact_sales;
+
+-- Total quantity sold
+SELECT
+    SUM(quantity) AS total_quantity
+FROM gold.fact_sales;
+
+-- Average selling price
+SELECT
+    AVG(price) AS average_price
+FROM gold.fact_sales;
+
+-- Total number of orders
+SELECT
+    COUNT(DISTINCT order_number) AS total_orders
+FROM gold.fact_sales;
+
+-- Total number of products sold
+SELECT 
+    COUNT(DISTINCT product_key) AS total_products
+FROM gold.fact_sales;
+
+-- Total number of customers
+SELECT 
+    COUNT(customer_key) AS total_customers
+FROM gold.fact_sales;
+
+-- Total number of customers who placed orders
+SELECT 
+    COUNT(DISTINCT customer_key) AS total_customers
+FROM gold.fact_sales;
+
+Business KPI Summary Report  
+
+--Purpose: Present all core KPIs in a single, consumable format
+--Business Relevance: Ideal for executive dashboards and KPI cards. Converts raw metrics into a standardized structure for reporting tools.
+
+SELECT 
+    'Total Sales' AS measure_name,
+    SUM(sales_amount) AS measure_value
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 
+    'Total Quantity Sold' AS measure_name,
+    SUM(quantity) AS measure_value
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 
+    'Average Selling Price' AS measure_name,
+    AVG(price) AS measure_value
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 
+    'Total Orders' AS measure_name,
+    COUNT(DISTINCT order_number) AS measure_value
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 
+    'Total Products Sold' AS measure_name,
+    COUNT(DISTINCT product_key) AS measure_value
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 
+    'Total Customers' AS measure_name,
+    COUNT(DISTINCT customer_key) AS measure_value
+FROM gold.fact_sales;
