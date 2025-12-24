@@ -1,0 +1,14 @@
+--Purpose: Inspect unique values in core dimensions
+--Business Relevance:
+--Validates categorical data used for segmentation (country, category, product). This ensures dimensions are clean and suitable for slicing dashboards and reports.
+
+-- Explore available customer countries
+SELECT DISTINCT country 
+FROM gold.dim_customers;
+
+-- Explore product hierarchy
+SELECT 
+    DISTINCT category,
+    subcategory,
+    product_name
+FROM gold.dim_products;
