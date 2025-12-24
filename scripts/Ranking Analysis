@@ -1,0 +1,34 @@
+--Purpose: Identify top and bottom performers
+--Business Relevance:Supports decision-making around promotions, discontinuation, customer targeting, and resource allocation.
+
+
+
+
+
+-- Top 5 products by revenue
+SELECT * 
+FROM (
+    SELECT 
+        p.product_name,
+        SUM(f.sales_amount) AS total_revenue,
+        RANK() OVER (ORDER BY SUM(f.sales_amount) DESC) AS rank_product
+    FROM gold.fact_sales f
+    LEFT JOIN gold.dim_products p
+        ON p.product_key = f.product_key
+    GROUP BY p.product_name
+) t
+WHERE rank_product <= 5;
+
+-- Bottom 5 products by revenue
+SELECT * 
+FROM (
+    SELECT 
+        p.product_name,
+        SUM(f.sales_amount) AS total_revenue,
+        RANK() OVER (ORDER BY SUM(f.sales_amount) ASC) AS rank_product
+    FROM gold.fact_sales f
+    LEFT JOIN gold.dim_products p
+        ON p.product_key = f.product_key
+    GROUP BY p.product_name
+) t
+WHERE rank_product <= 5;
